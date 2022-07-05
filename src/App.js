@@ -71,16 +71,16 @@ function Main() {
     <>
       <p className="title">Вордл</p>
       <p>Вводите слова на русском языке:</p>
-      <p className="rule-line">
+      <div className="rule-line">
         <div className="rule-square green">А</div> - буква совпала
-      </p>
-      <p className="rule-line">
-        <div className="rule-square orange">Б</div> - буква совпала, но не своем
-        месте
-      </p>
-      <p className="rule-line">
+      </div>
+      <div className="rule-line">
+        <div className="rule-square orange">Б</div> - буква совпала, но не на
+        своем месте
+      </div>
+      <div className="rule-line">
         <div className="rule-square grey">В</div> - буква отсутствует
-      </p>
+      </div>
       <div className="conatiner">
         {userWords.map((_, index) => {
           return (

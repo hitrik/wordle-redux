@@ -7,6 +7,7 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  margin-top: 20px;
 }
 
 .line {
@@ -60,4 +61,5 @@
   flex-direction: row;
   align-items: center;
   font-family: Tahoma;
+  margin: 10px 0;
 }
