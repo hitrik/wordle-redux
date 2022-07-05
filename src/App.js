@@ -7,7 +7,8 @@ import {
   removeLetter,
   initGame,
   addUserWord,
-  colorWinnerWord
+  colorWinnerWord,
+  colorLoserWord
 } from "./features/wordle/wordleSlice";
 import store from "./store";
 import "./styles.css";
@@ -58,7 +59,7 @@ function Main() {
   useEffect(() => {
     const delay = (ms) => new Promise((r) => setTimeout(r, ms));
     if (isGameOver) {
-      dispatch(colorWinnerWord());
+      dispatch(status === "WIN" ? colorWinnerWord() : colorLoserWord());
       delay(300).then(() => {
         alert("YOU " + status + " !\n\n\nЗагадано было слово: " + guessed);
         dispatch(initGame());

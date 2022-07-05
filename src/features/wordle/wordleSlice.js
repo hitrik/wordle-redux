@@ -42,6 +42,9 @@ export const wordleSlice = createSlice({
     colorWinnerWord(state) {
       state.colors = new Array(5).fill("lightgreen");
     },
+    colorLoserWord(state) {
+      state.colors = new Array(5).fill("tomato");
+    },
     nextLevel(state) {
       if (state.isGameOver) {
         return;
@@ -128,7 +131,8 @@ export const {
   initGame,
   addUserWord,
   getColorForWord,
-  colorWinnerWord
+  colorWinnerWord,
+  colorLoserWord
 } = wordleSlice.actions;
 
 export default wordleSlice.reducer;
