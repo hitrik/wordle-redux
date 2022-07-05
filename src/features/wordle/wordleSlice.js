@@ -7,15 +7,15 @@ colors.set("outofplace", "orange");
 colors.set("absent", "lightgrey");
 colors.set("correct", "lightgreen");
 
-function compareWordsAnfGetColors(userWord, guessedWord) {
+function compareWordsAndGetColors(user, guessed) {
   const result = [];
   for (let i = 0; i < MAX_LENGTH_WORD; i++) {
-    if (userWord[i] === guessedWord[i]) {
-      result[i] = colors.get("correct");
-      continue;
-    }
-    if (userWord.includes(guessedWord[i])) {
-      result[i] = colors.get("outofplace");
+    if (guessed.includes(user[i])) {
+      if (user[i] === guessed[i]) {
+        result[i] = colors.get("correct");
+      } else {
+        result[i] = colors.get("outofplace");
+      }
     } else {
       result[i] = colors.get("absent");
     }
@@ -35,7 +35,7 @@ export const wordleSlice = createSlice({
       }
     },
     removeLetter(state) {
-      const value = state.userInput;
+      const value = [...state.userInput];
       value.pop();
       state.userInput = value;
     },
@@ -45,7 +45,7 @@ export const wordleSlice = createSlice({
       }
       if (state.level < TOTAL_LEVELS) {
         const userWord = state.userWords[state.level];
-        const colors = compareWordsAnfGetColors(userWord, state.guessedWord);
+        const colors = compareWordsAndGetColors(userWord, state.guessedWord);
         state.colors = colors;
         state.userColors[state.level] = colors;
 
