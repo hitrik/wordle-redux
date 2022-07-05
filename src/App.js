@@ -12,7 +12,6 @@ import {
 import store from "./store";
 import "./styles.css";
 
-const BLANK_WORD_ARRAY = new Array(5).fill("");
 const WORD_LENGTH = 5;
 
 const fillArrayByEmptyString = (inputArray) => {
