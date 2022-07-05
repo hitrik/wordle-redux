@@ -6,7 +6,8 @@ import {
   nextLevel,
   removeLetter,
   initGame,
-  addUserWord
+  addUserWord,
+  colorWinnerWord
 } from "./features/wordle/wordleSlice";
 import store from "./store";
 import "./styles.css";
@@ -56,18 +57,30 @@ function Main() {
   }, [handle, dispatch]);
 
   useEffect(() => {
+    const delay = (ms) => new Promise((r) => setTimeout(r, ms));
     if (isGameOver) {
-      alert("YOU " + status + " !");
-      dispatch(initGame());
+      dispatch(colorWinnerWord());
+      delay(300).then(() => {
+        alert("YOU " + status + " !\n\n\nЗагадано было слово: " + guessed);
+        dispatch(initGame());
+      });
     }
-  }, [isGameOver, dispatch, status]);
+  }, [isGameOver, dispatch, status, guessed]);
 
   return (
     <>
-      <p>Level: {level}</p>
-      <p>User input: {input}</p>
-      <p>Guessed: {guessed}</p>
-      <p>Is game over? {isGameOver + ""}</p>
+      <p className="title">Вордл</p>
+      <p>Вводите слова на русском языке:</p>
+      <p className="rule-line">
+        <div className="rule-square green">А</div> - буква совпала
+      </p>
+      <p className="rule-line">
+        <div className="rule-square orange">Б</div> - буква совпала, но не своем
+        месте
+      </p>
+      <p className="rule-line">
+        <div className="rule-square grey">В</div> - буква отсутствует
+      </p>
       <div className="conatiner">
         {userWords.map((_, index) => {
           return (

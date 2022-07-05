@@ -39,6 +39,9 @@ export const wordleSlice = createSlice({
       value.pop();
       state.userInput = value;
     },
+    colorWinnerWord(state) {
+      state.colors = new Array(5).fill("lightgreen");
+    },
     nextLevel(state) {
       if (state.isGameOver) {
         return;
@@ -52,14 +55,23 @@ export const wordleSlice = createSlice({
         state.level = state.level + 1;
       }
       state.colors = [];
+      state.userInput = [];
     },
     addUserWord(state) {
-      if (state.userInput.length < MAX_LENGTH_WORD) {
+      if (
+        state.userInput.length === 0 &&
+        state.userInput.length < MAX_LENGTH_WORD
+      ) {
         return;
       }
       if (state.userInput.join("") === state.guessedWord) {
         state.isGameOver = true;
         state.status = "WIN";
+        return;
+      }
+      if (state.level === TOTAL_LEVELS - 1) {
+        state.isGameOver = true;
+        state.status = "LOSE";
         return;
       }
       state.userWords[state.level] = [...state.userInput];
@@ -115,7 +127,8 @@ export const {
   removeLetter,
   initGame,
   addUserWord,
-  getColorForWord
+  getColorForWord,
+  colorWinnerWord
 } = wordleSlice.actions;
 
 export default wordleSlice.reducer;
